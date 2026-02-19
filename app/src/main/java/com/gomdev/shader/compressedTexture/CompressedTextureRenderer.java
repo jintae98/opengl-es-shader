@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.opengl.GLES20;
-import android.support.v4.view.GestureDetectorCompat;
+import androidx.core.view.GestureDetectorCompat;
 import android.text.InputType;
 import android.util.Log;
 import android.view.GestureDetector;

@@ -404,13 +404,16 @@ public class PBORenderer extends SampleRenderer implements GLESRendererListener 
                 GLES30.glBindBuffer(GLES30.GL_PIXEL_UNPACK_BUFFER, mPBOIDs[index]);
 
                 int byteSize = width * height * 4;
-                mTextureShader.mapBufferRange(byteSize);
-                mTextureShader.uploadBuffer(bitmap, width, 0, 0, width, height);
-                mTextureShader.unmapBuffer();
+                java.nio.ByteBuffer buf = (java.nio.ByteBuffer) GLES30.glMapBufferRange(
+                        GLES30.GL_PIXEL_UNPACK_BUFFER, 0, byteSize, GLES30.GL_MAP_WRITE_BIT);
+                if (buf != null) {
+                    bitmap.copyPixelsToBuffer(buf);
+                }
+                GLES30.glUnmapBuffer(GLES30.GL_PIXEL_UNPACK_BUFFER);
                 bitmap.recycle();
 
                 GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, object.getTextureID());
-                mTextureShader.texSubImage2D(GLES30.GL_TEXTURE_2D, 0, 0, 0, width, height, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, 0);
+                GLES30.glTexSubImage2D(GLES30.GL_TEXTURE_2D, 0, 0, 0, width, height, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, null);
 
                 object.setTextureMapped(true);
 

@@ -1,7 +1,7 @@
 package com.gomdev.shader;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 
 public abstract class MainFragment extends Fragment {

@@ -330,7 +330,7 @@ public class TextRenderingRenderer extends SampleRenderer implements GLESRendere
         float x = mMargin;
         float y = (height - textHeight) * 0.5f + textHeight + index * mTextHeight;
 
-        GLESUtils.drawTextToBitmap((int) x, (int) y, text, textPaint, mBitmap, false);
+        GLESUtils.drawTextToBitmap((int) x, (int) y, text, textPaint, mBitmap);
     }
 
     public void touchDown(float x, float y) {
@@ -360,7 +360,7 @@ public class TextRenderingRenderer extends SampleRenderer implements GLESRendere
         if (mVersion == Version.GLES_30) {
             unmap();
             GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, mTextureID);
-            mShader.texSubImage2D(GLES30.GL_TEXTURE_2D, 0, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, 0);
+            GLES30.glTexSubImage2D(GLES30.GL_TEXTURE_2D, 0, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, null);
         } else {
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextureID);
             Buffer buffer = ByteBuffer
